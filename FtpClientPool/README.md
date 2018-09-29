@@ -1,10 +1,46 @@
 # FtpClientPool
 这是一个FTP客户端连接池，底层依赖apache的commons-net和commons-pool2，基于这二者做的个薄层封装，让我们可以在项目中以更简洁、高效的方式使用FtpClient。
+# > 获取FtpClientPool
+----
+## 1.直接下载jar包
 
-# 如何使用
-1、下载jar包 ftpClientPool-xx.jar(我用maven编译好的jar包)到你的工程lib中，或者下载此项目源码后在本地编译亦可。
-     
-2、在你的spring主配置文件中引入spring-ftpClientPool.xml配置文件
+## 2.Maven依赖
+```xml
+<dependency>
+  <groupId>com.itshidu.commons</groupId>
+  <artifactId>FtpClientPool</artifactId>
+  <version>1.0</version>
+</dependency>
+```
+.
+# > 如何使用
+----
+## 1.直接编码使用
+```xml
+//配置信息
+FtpPoolConfig cfg = new FtpPoolConfig();
+cfg.setHost("192.168.61.110");
+cfg.setPort(21);
+cfg.setUsername("ftpuser");
+cfg.setPassword("123456");
+
+FTPClientFactory factory = new FTPClientFactory(cfg);//对象工厂
+FTPClientPool pool = new FTPClientPool(factory);//连接池对象
+FtpClientUtils util = new FtpClientUtils(); //工具对象
+
+FTPClient c = pool.borrowObject();//从池子中借一个FTPClient对象
+util.mkdirs(c, "/data/test"); //在FTP的工作目录下创建多层目录
+InputStream in = new FileInputStream("D:/001.jpg"); //读取一个本地文件
+util.store(c, in, "/data/imgs/2018/09/29", "main.jpg");//上传到FTP服务器
+util.retrieve(c, "/data/imgs/2018/09/29/main.jpg", new FileOutputStream("F:/002.jpg"));//从FTP服务器取回文件
+util.delete(c, "/data/imgs/2018/09/29/main.jpg"); //删除FTP服务器中的文件
+pool.returnObject(c);//把对象归还给池子
+
+```
+
+
+## 2.集成到Spring中使用
+在你的spring主配置文件中引入spring-ftpClientPool.xml配置文件
 	    示例如下：   
       
 	 <import resource="classpath:spring-ftpClientPool.xml"/>
