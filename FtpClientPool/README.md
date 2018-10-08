@@ -29,7 +29,7 @@ FTPClientPool pool = new FTPClientPool(factory);//连接池对象
 FtpClientUtils util = new FtpClientUtils(); //工具对象
 
 FTPClient c = pool.borrowObject();//从池子中借一个FTPClient对象
-util.mkdirs(c, "/data/test"); //在FTP的工作目录下创建多层目录
+util.mkdirs(c, "/data/imgs"); //在FTP的工作目录下创建多层目录
 InputStream in = new FileInputStream("D:/001.jpg"); //读取一个本地文件
 util.store(c, in, "/data/imgs/2018/09/29", "main.jpg");//上传到FTP服务器
 util.retrieve(c, "/data/imgs/2018/09/29/main.jpg", new FileOutputStream("F:/002.jpg"));//从FTP服务器取回文件
