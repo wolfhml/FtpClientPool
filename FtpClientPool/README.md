@@ -186,17 +186,3 @@ ftp.testWhileIdle=true
 	    private   FTPClientPool  ftpClientPool;// 注入 ftp客户端连接池对象使用
 	  示例3：     你也可以同时注入上面二者
 	  
-Config的属性继承自GenericObjectPoolConfig，扩展属性如下：
-```
-private String host;// 主机名
-private int port = 21;// 端口
-private String username;// 用户名
-private String password;// 密码
-private int connectTimeOut = 5000;// ftp 连接超时时间 毫秒
-private String controlEncoding = "utf-8";
-private int bufferSize = 1024;// 缓冲区大小
-private int fileType = 2;// 传输数据格式 2表binary二进制数据
-private int dataTimeout = 120000;
-private boolean useEPSVwithIPv4 = false;
-private boolean passiveMode = true;// 是否启用被动模式
-```
