@@ -186,7 +186,7 @@ ftp.testWhileIdle=true
 	    private   FTPClientPool  ftpClientPool;// 注入 ftp客户端连接池对象使用
 	  示例3：     你也可以同时注入上面二者
 	  
-Config的属性继承自，扩展属性如下：
+Config的属性继承自GenericObjectPoolConfig，扩展属性如下：
 ```
 private String host;// 主机名
 private int port = 21;// 端口
